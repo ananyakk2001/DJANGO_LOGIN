@@ -31,15 +31,15 @@ class Login(APIView):
 
 
 class TestView(APIView):
-    # authentication_classes = [SessionAuthentication, TokenAuthentication]
-    # permission_classes = [IsAuthenticated]
+    authentication_classes = [SessionAuthentication, TokenAuthentication]
+    permission_classes = [IsAuthenticated]
     
     def get(self, request, format=None):
-        # user = request.user
-        # user_data = {
-        #     "username": user.username,
-        #     "email": user.email,
-        # }
+        user = request.user
+        user_data = {
+            "username": user.username,
+            "email": user.email,
+        }
         return Response({"user": user_data, "message": "Test view"})
 
 
