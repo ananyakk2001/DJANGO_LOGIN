@@ -14,7 +14,7 @@ class Signup(APIView):
             serializer.save()
             user = serializer.instance
             token, created = Token.objects.get_or_create(user=user)
-            return Response({"user": serializer.data, "token": token.key}, status=status.HTTP_201_CREATED)
+            return Response({"user": serializer.data, "token": token.key,"message":"Signup Successfully"} ,status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     
@@ -25,7 +25,7 @@ class Login(APIView):
         if user:
             serializer = UserSerializer(user)
             token, created = Token.objects.get_or_create(user=user)
-            return Response({"user": serializer.data, "token": token.key}, status=status.HTTP_200_OK)
+            return Response({"user": serializer.data, "token": token.key,"message":"Login Successfully"}, status=status.HTTP_200_OK)
         return Response({"details": "Invalid credentials"}, status=status.HTTP_400_BAD_REQUEST)
     
 
