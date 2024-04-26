@@ -16,8 +16,19 @@ class Signup(APIView):
             token, created = Token.objects.get_or_create(user=user)
             return Response({"user": serializer.data, "token": token.key,"message":"Signup Successfully"} ,status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#  *******************************************   
+class SalesmanSignup(APIView):
+    def post(self, request, format=None):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            user = serializer.instance
+            token, created = Token.objects.get_or_create(user=user)
+            return Response({"user": serializer.data, "token": token.key,"message":"Signup Successfully"} ,status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
     
-    
+# ***********************************************    
 class Login(APIView):
     def post(self, request, format=None):
         data = request.data
