@@ -14,3 +14,10 @@ class UserSerializer(serializers.ModelSerializer):
         user.save() 
         Token.objects.create(user=user)
         return user
+    
+    def create(self, validated_data):
+        user = User.objects.create_user(**validated_data)
+        user.is_sales = True
+        user.save() 
+        Token.objects.create(user=user)
+        return user
